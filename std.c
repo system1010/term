@@ -39,12 +39,12 @@ void openpty_demo(const char *output_size) {
       // command being executed could potentially saturate the slave's buffer and
      // stall.
       while (1) {
-      if (waitpid(pid, NULL, WNOHANG) == pid) {
+      if (waitpid(pid, NULL, WNOHANG) == pid) {//wait for end execution in loop(child)
       break;
       }
      FD_ZERO(&rfds);
      FD_SET(master, &rfds);
-     if (select(master + 1, &rfds, NULL, NULL, &tv)) {
+     if (select(master + 1, &rfds, NULL, NULL, &tv)) {//wait for output (time=zero)
      size = read(master, buf, 4096);
      buf[size] = '\0';
      count += size;
